@@ -1,0 +1,58 @@
+@startuml
+
+header Проект Чат
+title Диаграмма прецедентов
+
+left to right direction
+
+rectangle "Аутентификация"{
+    usecase "Аутентификация" as auth
+}
+
+rectangle "Чат" {
+  usecase "Создать чат" as create_chat
+  usecase "Присоединиться к чату" as join_to_chat
+  usecase "Получить инфо о чате" as get_chat_info
+  usecase "Обновить инфо о чате" as update_chat_info
+  usecase "Удалить чат" as delete_chat
+  usecase "Выйти из чата " as leave_chat
+}
+
+rectangle "Сообщение" {
+  usecase "Создать сообщение" as create_message
+  usecase "Получить список сообщений" as get_list_messages
+}
+
+rectangle "Пользователи" {
+  usecase "Стать пользователем" as create_user
+  usecase "Добавить пользователя в чат" as add_user_to_chat
+  usecase "Удалить пользователя из чата" as delete_user_from_chat
+  usecase "Получить список пользователей" as get_users_list
+
+}
+
+actor "Пользователь" as user
+user -- create_chat
+user -- join_to_chat
+
+
+actor "Пользователь чата" as userch
+userch -- get_chat_info
+userch -- leave_chat
+userch -- get_users_list
+userch -- create_message
+userch -- get_list_messages
+
+actor "Администратор" as admin
+admin -- add_user_to_chat
+admin -- delete_user_from_chat
+admin -- update_chat_info
+admin -- delete_chat
+
+
+
+actor "Гость" as guest
+guest -- auth
+guest -- create_user
+
+@enduml

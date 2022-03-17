@@ -1,0 +1,56 @@
+@startuml
+
+header Проект чат
+title Схема БД
+
+hide circle
+skinparam linetype ortho
+
+entity users {
+  * **id**  :  int
+  __
+  **email**  :  varchar
+}
+
+entity messages{
+  * **id**  :  int
+  __
+  * **user_id**  :  int
+  __
+  * **chat_id**  :  int
+  __
+  * **text**  :  varchar
+  --
+  * **time_created**  :  varchar
+}
+
+entity chats {
+  * **id**  :  int
+  __
+  * **title**  :  varchar
+  __
+  * **admin**  :  user_id int
+}
+
+entity chats_user {
+  * **id**  :  int
+  __
+  * **chat_id**  :  int
+  __
+  * **user_id**  :  int
+}
+
+entity chats_messages {
+  * **id**  :  int
+  __
+  * **chat_id**  :  int
+  __
+  * **message_id**  :  int
+}
+
+users ||--o{ chats_user
+chats ||--o{ chats_user
+chats ||--o{ chats_messages
+messages ||--|| chats_messages
+
+@enduml
