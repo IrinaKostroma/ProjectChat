@@ -7,10 +7,15 @@ class NoUser(AppError):
 
 
 class NoMessage(AppError):
-    msg_template = "No message'{}'"
+    msg_template = "No message'{number}'"
     code = 'no_message'
 
 
-class EmptyChat(AppError):
-    msg_template = "Chat is empty"
-    code = 'chat_is_empty'
+class NoChat(AppError):
+    msg_template = "No chat '{title}'"
+    code = 'no_chat'
+
+
+class EmptyCart(AppError):
+    msg_template = "Cart is empty"
+    code = 'cart_is_empty'

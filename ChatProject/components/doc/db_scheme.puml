@@ -1,0 +1,44 @@
+@startuml
+
+header Демо проект
+title Схема БД
+
+hide circle
+skinparam linetype ortho
+
+
+entity users {
+  * **id**  :  int
+  __
+  **email**  :  varchar
+}
+
+entity chats {
+  * **id**  :  varchar
+  __
+  * **title**  :  varchar
+  --
+  * **description**  :  varchar
+}
+
+entity carts {
+  * **id**  :  int
+  __
+  * **user_id**  :  int
+}
+
+
+entity messages {
+  * **number**  :  int
+  __
+  * **user_id**  :  int
+  __
+  * **chat_id**  :  int
+}
+
+
+messages }o--|| users
+carts }o--|| chats
+carts ||--|| users
+
+@enduml

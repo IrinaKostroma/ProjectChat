@@ -48,9 +48,9 @@ entity chats_messages {
   * **message_id**  :  int
 }
 
-users ||--o{ chats_user
-chats ||--o{ chats_user
-chats ||--o{ chats_messages
+users }o--o{ chats_user
+chats }o--o{ chats_user
+chats }o--o{ chats_messages
 messages ||--|| chats_messages
 
 @enduml

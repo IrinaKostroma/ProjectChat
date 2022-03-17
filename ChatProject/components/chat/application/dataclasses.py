@@ -10,6 +10,39 @@ class User:
 
 
 @attr.dataclass
+class Chat:
+    sku: str
+    title: str
+    description: str
+    price: float
+
+
+@attr.dataclass
+class Cart:
+    user_id: int
+    chats: List[Chat] = attr.ib(factory=list)
+
+    def find_position(self, chat: Chat):
+        for ch in self.chats:
+            if ch == chat:
+                return chat
+
+    def add_chat(self, chat: Chat):
+        self.chats.append(chat)
+
+    def remove_chat(self, chat: Chat):
+        position = self.find_position(chat)
+        for ch in self.chats:
+            if ch == chat:
+                self.chats.remove(chat)
+
+
+
+
+
+
+
+@attr.dataclass
 class Message:
     id: Optional[int] = None
     user_id: Optional[int] = None
