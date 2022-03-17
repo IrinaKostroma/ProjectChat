@@ -10,12 +10,14 @@ rectangle "Аутентификация"{
 }
 
 rectangle "Чат" {
-  usecase "Создать чат" as create_chat
-  usecase "Присоединиться к чату" as join_to_chat
+  usecase "Удалить чат" as delete_chat
   usecase "Получить инфо о чате" as get_chat_info
   usecase "Обновить инфо о чате" as update_chat_info
-  usecase "Удалить чат" as delete_chat
-  usecase "Выйти из чата " as leave_chat
+  usecase "Получить список пользователей" as get_users_list
+  usecase "Добавить пользователя в чат" as add_user_to_chat
+  usecase "Удалить пользователя из чата" as delete_user_from_chat
+
+
 }
 
 rectangle "Сообщение" {
@@ -23,12 +25,10 @@ rectangle "Сообщение" {
   usecase "Получить список сообщений" as get_list_messages
 }
 
-rectangle "Пользователи" {
-  usecase "Стать пользователем" as create_user
-  usecase "Добавить пользователя в чат" as add_user_to_chat
-  usecase "Удалить пользователя из чата" as delete_user_from_chat
-  usecase "Получить список пользователей" as get_users_list
-
+rectangle "Корзина" {
+  usecase "Создать чат" as create_chat
+  usecase "Присоединиться к чату" as join_to_chat
+  usecase "Выйти из чата " as leave_chat
 }
 
 actor "Пользователь" as user
@@ -53,6 +53,6 @@ admin -- delete_chat
 
 actor "Гость" as guest
 guest -- auth
-guest -- create_user
+
 
 @enduml
