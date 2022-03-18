@@ -5,19 +5,23 @@ title Диаграмма прецедентов
 
 left to right direction
 
-rectangle "Аутентификация"{
-    usecase "Аутентификация" as auth
+rectangle "Registration"{
+    usecase "Вход" as login
+    usecase "регистрация" as auth
+    usecase "выход" as logout
 }
 
 rectangle "Чат" {
+  usecase "Создать чат" as create_chat
   usecase "Удалить чат" as delete_chat
   usecase "Получить инфо о чате" as get_chat_info
   usecase "Обновить инфо о чате" as update_chat_info
   usecase "Получить список пользователей" as get_users_list
   usecase "Добавить пользователя в чат" as add_user_to_chat
   usecase "Удалить пользователя из чата" as delete_user_from_chat
-
-
+  usecase "Получить список чатов" as get_chat_list
+    usecase "Присоединиться к чату" as join_to_chat
+  usecase "Выйти из чата " as leave_chat
 }
 
 rectangle "Сообщение" {
@@ -25,16 +29,12 @@ rectangle "Сообщение" {
   usecase "Получить список сообщений" as get_list_messages
 }
 
-rectangle "Корзина" {
-  usecase "Создать чат" as create_chat
-  usecase "Присоединиться к чату" as join_to_chat
-  usecase "Выйти из чата " as leave_chat
-}
 
-actor "Пользователь" as user
+actor "Пользователь " as user
 user -- create_chat
 user -- join_to_chat
-
+user -- get_chat_list
+user -- logout
 
 actor "Пользователь чата" as userch
 userch -- get_chat_info
@@ -49,9 +49,8 @@ admin -- delete_user_from_chat
 admin -- update_chat_info
 admin -- delete_chat
 
-
-
 actor "Гость" as guest
+guest -- login
 guest -- auth
 
 

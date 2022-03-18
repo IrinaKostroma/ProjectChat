@@ -12,7 +12,7 @@ class NoMessage(AppError):
 
 
 class NoChat(AppError):
-    msg_template = "No chat '{title}'"
+    msg_template = "No chatapp '{title}'"
     code = 'no_chat'
 
 

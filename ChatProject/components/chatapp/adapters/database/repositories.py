@@ -4,8 +4,8 @@ from classic.components import component
 from classic.sql_storage import BaseRepository
 from sqlalchemy import select
 
-from chat.application import interfaces
-from chat.application.dataclasses import User, Chat, Message, Cart
+from application import interfaces
+from application.dataclasses import User, Chat, Message, ChatUsers
 
 
 @component
@@ -27,7 +27,7 @@ class ChatsRepo(BaseRepository, interfaces.ChatsRepo):
                          limit: int = 10,
                          offset: int = 0) -> List[Chat]:
 
-        query = (select(Chat).order_by(Chat.sku)
+        query = (select(Chat).order_by(Chat.id)
                                 .limit(limit)
                                 .offset(offset))
 
@@ -47,20 +47,22 @@ class ChatsRepo(BaseRepository, interfaces.ChatsRepo):
         self.session.add(chat)
         self.session.flush()
 
+    def remove(self, chat: Chat):
+        pass
 
 @component
-class CartsRepo(BaseRepository, interfaces.CartsRepo):
+class ChatUsersRepo(BaseRepository, interfaces.ChatUsersRepo):
 
-    def get_for_user(self, user_id: int) -> Optional[Cart]:
-        query = select(Cart).where(Cart.user_id == user_id)
+    def get_for_user_chat(self, user_id: int, chat_id: int) -> Optional[ChatUsers]:
+        query = select(ChatUsers).where(ChatUsers.user_id == user_id and ChatUsers.chat_id == chat_id)
         return self.session.execute(query).scalars().one_or_none()
 
-    def add(self, cart: Cart):
-        self.session.add(cart)
+    def add(self, user_to_chat: ChatUsers):
+        self.session.add(user_to_chat)
         self.session.flush()
 
-    def remove(self, cart: Cart):
-        self.session.delete(cart)
+    def remove(self, user_from_chat: ChatUsers):
+        self.session.delete(user_from_chat)
 
 
 @component
@@ -70,6 +72,6 @@ class MessagesRepo(BaseRepository, interfaces.MessagesRepo):
         query = select(Message).where(Message.number == number)
         return self.session.execute(query).scalars().one_or_none()
 
-    def add(self, order: Message):
-        self.session.add(order)
+    def add(self, message: Message):
+        self.session.add(message)
         self.session.flush()

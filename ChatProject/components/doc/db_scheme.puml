@@ -6,11 +6,12 @@ title Схема БД
 hide circle
 skinparam linetype ortho
 
-
 entity users {
   * **id**  :  int
   __
-  **email**  :  varchar
+  **name**  :  varchar
+  __
+  **password**  :  varchar
 }
 
 entity chats {
@@ -19,14 +20,17 @@ entity chats {
   * **title**  :  varchar
   --
   * **description**  :  varchar
+  --
+  * **admin**  :  user_id
+  --
+  * **users**  :  list user_id
 }
 
-entity carts {
+entity chat_users {
   * **id**  :  int
   __
   * **user_id**  :  int
 }
-
 
 entity messages {
   * **number**  :  int
@@ -36,9 +40,8 @@ entity messages {
   * **chat_id**  :  int
 }
 
-
-messages }o--|| users
-carts }o--|| chats
-carts ||--|| users
+'messages }o--|| users
+'carts }o--|| chats
+'carts ||--|| users
 
 @enduml

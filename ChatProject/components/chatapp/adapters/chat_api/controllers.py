@@ -1,13 +1,13 @@
 from classic.components import component
 
-from chat.application import services
+from application import services
 
 from .join_points import join_point
 
 
 @component
-class CatalogChats:
-    catalog_chats: services.CatalogChats
+class Chats:
+    chats: services.ChatService
 
     @join_point
     def on_get_show_chat(self, request, response):
@@ -33,8 +33,8 @@ class CatalogChats:
 
 
 @component
-class Checkout:
-    checkout: services.Checkout
+class Users:
+    users: services.UserService
 
     @join_point
     def on_get_show_cart(self, request, response):
@@ -66,7 +66,7 @@ class Checkout:
 
     @join_point
     def on_post_register_message(self, request, response):
-        order_number = self.checkout.create_message(
+        message_number = self.checkout.create_message(
             user_id=request.context.client_id,
         )
         response.media = {'message_number': message_number}
@@ -74,7 +74,7 @@ class Checkout:
 
 @component
 class Messages:
-    orders: services.Messages
+    messages: services.MessageService
 
     @join_point
     def on_get_show_message(self, request, response):

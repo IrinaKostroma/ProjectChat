@@ -9,21 +9,22 @@ metadata = MetaData()
 customers = Table(
     'users', metadata,
     Column('id', Integer, primary_key=True),
-    Column('email', String),
+    Column('name', String),
+    Column('password', String),
 )
 
 products = Table(
     'chats', metadata,
-    Column('sku', String, primary_key=True),
+    Column('id', String, primary_key=True),
     Column('title', String),
     Column('description', String),
-    Column('price', Float),
+    Column('admin_name', String),
 )
 
 carts = Table(
-    'carts', metadata,
-    Column('id', Integer, primary_key=True),
-    Column('user_id', ForeignKey('customers.id')),
+    'chat_users', metadata,
+    Column('user_id', Integer, primary_key=True),
+    Column('chat_id', ForeignKey('customers.id')),
 )
 
 # cart_positions = Table(
@@ -38,7 +39,8 @@ messages = Table(
     'messages', metadata,
     Column('number', Integer, primary_key=True),
     Column('text', Integer, primary_key=True),
-    Column('user_id', ForeignKey('customers.id')),
+    Column('user_name', ForeignKey('users.name')),
+    Column('chat_title', ForeignKey('chats.title')),
 )
 
 # order_lines = Table(

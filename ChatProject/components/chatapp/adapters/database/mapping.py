@@ -1,6 +1,6 @@
 from sqlalchemy.orm import registry, relationship
 
-from simple_shop.application import dataclasses
+from application import dataclasses
 
 from . import tables
 

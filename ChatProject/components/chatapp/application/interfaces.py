@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Optional, List
 
-from .dataclasses import User, Message, Chat, Cart
+from .dataclasses import User, Message, Chat, ChatUsers
 
 
 class UsersRepo(ABC):
@@ -42,21 +42,21 @@ class ChatsRepo(ABC):
     def remove(self, cart: Chat): ...
 
 
-class CartsRepo(ABC):
+class ChatUsersRepo(ABC):
 
     @abstractmethod
-    def get_for_user(self, user_id: int) -> Optional[Cart]: ...
+    def get_for_user_chat(self, user_id: int, chat_id: int) -> Optional[ChatUsers]: ...
 
     @abstractmethod
-    def add(self, cart: Cart): ...
+    def add(self, user_to_chat: ChatUsers): ...
 
     @abstractmethod
-    def remove(self, cart: Cart): ...
+    def remove(self, user_from_chat: ChatUsers): ...
 
-    def get_or_create(self, user_id: int) -> Cart:
-        cart = self.get_for_user(user_id)
+    def get_or_create(self, user_id, chat_id: int) -> ChatUsers:
+        cart = self.get_for_user_chat(user_id)
         if cart is None:
-            cart = Cart(user_id)
+            cart = ChatUsers(user_id)
             self.add(cart)
 
         return cart
